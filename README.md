@@ -133,4 +133,4 @@ The app is deployed at [insert Render URL here, e.g., https://wind-turbine-blade
 
 ## Acknowledgments
 - Based on ANSYS simulation data from the mini project *"Analysis of Wind Turbine Blade"* (May 2025).
-- Project developed and prepared for deployment on May 26, 2025.
+
