@@ -132,5 +132,5 @@ The app is deployed at [insert Render URL here, e.g., https://wind-turbine-blade
 - **Input Validation**: Add checks to ensure user inputs are within realistic ranges (e.g., Young’s Modulus between 50–90 GPa).
 
 ## Acknowledgments
-- Based on ANSYS simulation data from the mini project *"Analysis of Wind Turbine Blade"* (May 2025).
+- Based on ANSYS simulation data from the mini project *"Analysis of Wind Turbine Blade"* .
 
