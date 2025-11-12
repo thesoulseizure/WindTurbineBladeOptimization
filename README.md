@@ -3,7 +3,7 @@
 ## Overview
 This project leverages machine learning to predict the performance of wind turbine blades based on material properties, geometry, and operating conditions. It builds on ANSYS simulation data for a blade made of Aluminium Alloy, extending the analysis to a broader range of conditions using a synthetic dataset. A Flask web app allows users to input design parameters and get predictions for deformation, stress, strain, factor of safety, fatigue life, and damage, enabling engineers to optimize blade designs without running time-intensive simulations.
 
-The app is deployed at [insert Render URL here, e.g., https://wind-turbine-blade-optimization.onrender.com].
+The app is deployed at [insert Render URL here, e.g., https://windturbinebladeoptimization.onrender.com.
 
 ## Project Goals
 - Predict wind turbine blade performance metrics (deformation, stress, strain, factor of safety, fatigue life, and damage) using machine learning.
