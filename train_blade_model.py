@@ -6,6 +6,7 @@ Train a RandomForest multi-output regressor and save to models/.
 """
 
 from __future__ import annotations
+
 import argparse
 from pathlib import Path
 import pandas as pd
@@ -14,13 +15,16 @@ from sklearn.ensemble import RandomForestRegressor
 import joblib
 import json
 
+
 def load_data(path: str) -> pd.DataFrame:
     return pd.read_csv(path)
+
 
 def train(X, y, n_estimators=100, random_state=42):
     model = RandomForestRegressor(n_estimators=n_estimators, random_state=random_state)
     model.fit(X, y)
     return model
+
 
 def main():
     parser = argparse.ArgumentParser(description="Train blade model and save artifact.")
@@ -32,8 +36,8 @@ def main():
     args = parser.parse_args()
 
     df = load_data(args.data)
-    features = ['youngs_modulus', 'density', 'poissons_ratio', 'thickness', 'length', 'pressure', 'frequency']
-    targets = ['deformation', 'stress', 'strain', 'factor_of_safety', 'fatigue_life', 'damage']
+    features = ["youngs_modulus", "density", "poissons_ratio", "thickness", "length", "pressure", "frequency"]
+    targets = ["deformation", "stress", "strain", "factor_of_safety", "fatigue_life", "damage"]
 
     X = df[features]
     y = df[targets]
@@ -55,6 +59,7 @@ def main():
 
     print(f"Model saved to {out_path}")
     print(f"Metrics: train_r2={train_score:.4f}, test_r2={test_score:.4f}")
+
 
 if __name__ == "__main__":
     main()
