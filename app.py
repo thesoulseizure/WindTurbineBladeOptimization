@@ -1,74 +1,100 @@
-from flask import Flask, render_template, request, abort, jsonify
-import joblib
-import pandas as pd
+#!/usr/bin/env python3
+"""
+app.py - Flask app for Wind Turbine Blade Predictor.
+
+Improvements:
+- MODEL_PATH can be configured via MODEL_PATH env var
+- Accepts form POST and JSON POST
+- Input validation and ranges
+- Clear logging and structured error responses (JSON for API)
+"""
+
+from __future__ import annotations
 import os
 import logging
+from pathlib import Path
+from typing import Dict, Any
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from flask import Flask, render_template, request, jsonify
+import joblib
+import pandas as pd
 
-# Create Flask app. Templates must live in ./templates relative to this file.
-app = Flask(__name__, template_folder='templates')
+# Logging
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
+logger = logging.getLogger("windblade")
 
-# Model path (relative to this file)
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, "rf_blade_model.pkl")
+# App
+app = Flask(__name__, template_folder="templates")
 
-# Try to load the model and log errors clearly
-rf_model = None
-try:
-    logger.info("Loading model from %s", MODEL_PATH)
-    rf_model = joblib.load(MODEL_PATH)
-    logger.info("Model loaded successfully.")
-except Exception as e:
-    logger.exception("Failed to load model. Predictions will not work until the model is available: %s", e)
-    rf_model = None
+# Config: MODEL_PATH env var or default
+BASE_DIR = Path(__file__).parent.resolve()
+MODEL_PATH = Path(os.environ.get("MODEL_PATH", BASE_DIR / "models" / "rf_blade_model.pkl"))
+
+def load_model(path: Path):
+    if not path.exists():
+        logger.warning("Model not found at %s", path)
+        return None
+    try:
+        model = joblib.load(path)
+        logger.info("Loaded model from %s", path)
+        return model
+    except Exception as e:
+        logger.exception("Failed to load model: %s", e)
+        return None
+
+rf_model = load_model(MODEL_PATH)
+
+# Input validation ranges (example)
+RANGES = {
+    "youngs_modulus": (1, 1e4),
+    "density": (1, 1e5),
+    "poissons_ratio": (0.0, 1.0),
+    "thickness": (0.001, 1e3),
+    "length": (0.001, 1e4),
+    "pressure": (0, 1e7),
+    "frequency": (0, 1e6),
+}
+
+FEATURE_ORDER = ["youngs_modulus", "density", "poissons_ratio", "thickness", "length", "pressure", "frequency"]
+
+def parse_and_validate(data: Dict[str, Any]) -> pd.DataFrame:
+    vals = {}
+    for f in FEATURE_ORDER:
+        if f not in data:
+            raise ValueError(f"Missing input: {f}")
+        try:
+            v = float(data[f])
+        except Exception:
+            raise ValueError(f"Invalid numeric value for {f}: {data[f]}")
+        low, high = RANGES[f]
+        if not (low <= v <= high):
+            raise ValueError(f"Value for {f} out of range [{low}, {high}]: {v}")
+        vals[f] = v
+    return pd.DataFrame([vals])
 
 @app.route("/")
 def index():
-    # Render input form
     return render_template("index.html")
 
 @app.route("/predict", methods=["POST"])
 def predict():
+    # Support form submission or JSON
     if rf_model is None:
-        logger.error("Prediction requested but model is not loaded.")
-        return render_template("error.html", message="Model not loaded on server. Check logs."), 500
+        return render_template("error.html", message="Model is not available on server. Contact admin."), 503
 
     try:
-        # Parse and validate incoming form values
-        def get_float(key):
-            v = request.form.get(key)
-            if v is None or v == "":
-                raise ValueError(f"Missing form value: {key}")
-            return float(v)
-
-        features = {
-            "youngs_modulus": get_float("youngs_modulus"),
-            "density": get_float("density"),
-            "poissons_ratio": get_float("poissons_ratio"),
-            "thickness": get_float("thickness"),
-            "length": get_float("length"),
-            "pressure": get_float("pressure"),
-            "frequency": get_float("frequency"),
-        }
-
-        input_df = pd.DataFrame([features])
-
-        # Predict
-        preds = rf_model.predict(input_df)
-
-        # If model returns shape (n_samples, n_targets) where n_targets=6
-        if hasattr(preds, "__len__") and len(preds) > 0:
-            row = preds[0]
+        if request.is_json:
+            payload = request.get_json()
         else:
-            row = preds
+            payload = request.form.to_dict()
 
-        # Defensive: ensure we have at least 6 outputs
+        input_df = parse_and_validate(payload)
+
+        preds = rf_model.predict(input_df)
+        row = preds[0] if hasattr(preds, "__len__") else preds
+
         if len(row) < 6:
-            logger.error("Model returned unexpected output shape: %s", row)
-            return render_template("error.html", message="Model returned unexpected output shape."), 500
+            raise RuntimeError("Model returned unexpected output shape")
 
         results = {
             "deformation": float(row[0]),
@@ -79,17 +105,21 @@ def predict():
             "damage": float(row[5]),
         }
 
+        # If request wants JSON, return it; otherwise render template
+        if request.is_json:
+            return jsonify({"success": True, "predictions": results})
         return render_template("result.html", **results)
     except Exception as e:
-        logger.exception("Error during prediction: %s", e)
+        logger.exception("Prediction error: %s", e)
+        # For form requests show template; for API requests return JSON error
+        if request.is_json:
+            return jsonify({"success": False, "error": str(e)}), 400
         return render_template("error.html", message=str(e)), 400
 
 @app.route("/health")
 def health():
-    # Simple health endpoint to quickly check app status
-    status = {"status": "ok", "model_loaded": rf_model is not None}
-    return jsonify(status)
+    return jsonify({"status": "ok", "model_loaded": rf_model is not None})
 
 if __name__ == "__main__":
-    # When run locally, debug True is okay for development; Render will use gunicorn.
-    app.run(host="0.0.0.0", port=5002, debug=True)
+    # Run only for local development. Production use gunicorn and set MODEL_PATH env var.
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5002)), debug=bool(os.environ.get("FLASK_DEBUG", "false").lower() in ["1","true"]))
