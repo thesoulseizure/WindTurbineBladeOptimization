@@ -1,5 +1,5 @@
 import pandas as pd
-from src.windturbine.train import train, train_from_csv
+from src.windturbine.train import train
 from sklearn.ensemble import RandomForestRegressor
 
 

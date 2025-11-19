@@ -8,14 +8,22 @@ Model loading and prediction utilities.
 
 from pathlib import Path
 import os
-from typing import Dict, Any, List
+from typing import Dict, Any
 
 import joblib
 import pandas as pd
 
 
 DEFAULT_MODEL_PATH = os.environ.get("MODEL_PATH", "models/rf_blade_model.pkl")
-FEATURE_ORDER = ["youngs_modulus", "density", "poissons_ratio", "thickness", "length", "pressure", "frequency"]
+FEATURE_ORDER = [
+    "youngs_modulus",
+    "density",
+    "poissons_ratio",
+    "thickness",
+    "length",
+    "pressure",
+    "frequency",
+]
 
 
 def load_model(path: str = DEFAULT_MODEL_PATH):

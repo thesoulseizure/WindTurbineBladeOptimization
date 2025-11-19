@@ -1,4 +1,3 @@
-import pandas as pd
 from src.windturbine.data import generate
 
 
