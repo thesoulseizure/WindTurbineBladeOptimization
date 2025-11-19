@@ -114,12 +114,24 @@ WindTurbineBladeOptimization/
 
 Plots are auto-generated under `/reports/figures`.  
 Include:
-- (reports/figures/input_distributions.png)
-- (reports/figures/scatter_relations.png)
-- (reports/figures/correlation_heatmap.png)
-- (reports/figures/feature_importance.png)
-- (reports/figures/actual_vs_predicted.png)
-- (reports/figures/residual_histograms.png
+
+### Input distributions  
+![Input distributions](reports/figures/input_distributions.png)
+
+### Scatter relationships  
+![Scatter relationships](reports/figures/scatter_relations.png)
+
+### Correlation heatmap  
+![Correlation heatmap](reports/figures/correlation_heatmap.png)
+
+### Feature importance  
+![Feature importance](reports/figures/feature_importance.png)
+
+### Actual vs Predicted  
+![Actual vs Predicted](reports/figures/actual_vs_predicted.png)
+
+### Residual histograms  
+![Residual histograms](reports/figures/residual_histograms.png)
 ---
 
 ## 🧪 Running Locally
