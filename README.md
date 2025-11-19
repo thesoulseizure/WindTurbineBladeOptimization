@@ -1,5 +1,48 @@
 # Wind Turbine Blade Optimization Using Machine Learning
 
+<h1 align="center">🌬️ Wind Turbine Blade Optimization</h1>
+<p align="center">
+  Machine Learning + Flask Web App for predicting and optimizing wind turbine blade performance.  
+</p>
+<p align="center">
+  <img alt="project-logo" src="https://img.shields.io/badge/Wind%20Turbine%20Blade%20Optimization-Project-blueviolet?style=for-the-badge">
+</p>
+
+<p align="center">
+  <!-- Status -->
+  <a href="https://windturbinebladeoptimization.onrender.com">
+    <img alt="deployment" src="https://img.shields.io/badge/Live%20App-Online-success?style=flat-square">
+  </a>
+
+  <!-- Python -->
+  <img alt="python" src="https://img.shields.io/badge/Python-3.10-blue?style=flat-square&logo=python">
+
+  <!-- License -->
+  <a href="./LICENSE">
+    <img alt="license" src="https://img.shields.io/badge/License-MIT-green?style=flat-square">
+  </a>
+
+  <!-- Build (GitHub Actions) -->
+  <a href="https://github.com/TheComputationalCore/WindTurbineBladeOptimization/actions">
+    <img alt="build" src="https://img.shields.io/github/actions/workflow/status/TheComputationalCore/WindTurbineBladeOptimization/python-app.yml?style=flat-square&label=CI%20Build">
+  </a>
+
+  <!-- Code Style -->
+  <img alt="code-style" src="https://img.shields.io/badge/Code%20Style-black-black?style=flat-square">
+
+  <!-- Model -->
+  <img alt="model" src="https://img.shields.io/badge/Model-RandomForestRegressor-orange?style=flat-square">
+
+  <!-- Issues -->
+  <a href="https://github.com/TheComputationalCore/WindTurbineBladeOptimization/issues">
+    <img alt="issues" src="https://img.shields.io/github/issues/TheComputationalCore/WindTurbineBladeOptimization?style=flat-square">
+  </a>
+
+  <!-- Stars -->
+  <img alt="stars" src="https://img.shields.io/github/stars/TheComputationalCore/WindTurbineBladeOptimization?style=flat-square">
+</p>
+
+
 ## 🌬️ Overview
 This project presents a complete machine-learning–driven pipeline for **wind turbine blade structural behavior prediction and optimization**.  
 It combines **synthetic dataset generation**, **Random Forest regression modeling**, **interactive Flask-based prediction dashboard**, and **comprehensive visualization reports**.  
