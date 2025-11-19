@@ -157,43 +157,45 @@ Figures included in `/reports/figures`:
 Figures extracted from FEA study:
 
 ### Overview / Intro
-![Intro diagram](assets/intro.png)
+![Intro diagram](../assets/intro.png)
 
 ### Blade geometry
-![Geometry](assets/geometry.png)
+![Geometry](../assets/geometry.png)
 
 ### Mesh diagram
-![Mesh diagram](assets/mesh-diagram.png)
+![Mesh diagram](../assets/mesh-diagram.png)
 
 ### Mesh details
-![Mesh details](assets/mesh-details.png)
+![Mesh details](../assets/mesh-details.png)
 
 ### Case 1 — Input conditions
-![Case 1 input](assets/case1-input.png)
+![Case 1 input](../assets/case1-input.png)
 
 ### Case 1 — Deformation (transient/modal)
-![Case 1 deformation](assets/case1-deformation.png)
+![Case 1 deformation](../assets/case1-deformation.png)
 
 ### Case 1 — Stress (von-Mises)
-![Case 1 stress](assets/case1-stress.png)
+![Case 1 stress](../assets/case1-stress.png)
 
 ### Case 1 — Strain
-![Case 1 strain](assets/case1-strain.png)
+![Case 1 strain](../assets/case1-strain.png)
 
 ### Case 1 — Factor of Safety
-![Case 1 factor of safety](assets/case1-safety%20factor.png)
+![Case 1 factor of safety](../assets/case1-safety%20factor.png)
+
+> **Note:** the filename `case1-safety factor.png` contains a space — GitHub can render it when encoded as `%20`. Renaming is cleaner (see commands below).
 
 ### Case 2 — Output (harmonic / frequency)
-![Case 2 output](assets/case2-output.png)
+![Case 2 output](../assets/case2-output.png)
 
 ### Case 3 — Fatigue life
-![Case 3 life](assets/case3-life.png)
+![Case 3 life](../assets/case3-life.png)
 
 ### Case 3 — Damage / fatigue maps
-![Case 3 damage](assets/case3-damage.png)
+![Case 3 damage](../assets/case3-damage.png)
 
 ### Combined results / summary
-![Results overview](assets/results.png)
+![Results overview](../assets/results.png)
 
 ---
 
