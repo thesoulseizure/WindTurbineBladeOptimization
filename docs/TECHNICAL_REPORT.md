@@ -154,8 +154,6 @@ Figures included in `/reports/figures`:
 
 ## 8. Engineering Diagrams from Project Assets
 
-Figures extracted from FEA study:
-
 Figures extracted from the FEA study:
 
 ### Blade geometry
