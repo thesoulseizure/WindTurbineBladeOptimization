@@ -100,13 +100,13 @@ WindTurbineBladeOptimization/
 ## 📸 Screenshots
 
 ### 🏠 Dashboard  
-![Dashboard](assets/dashboard.png)
+![Dashboard](screenshots/dashboard.png)
 
 ### 🔢 Input Form  
-![Form](assets/enter_input.png)
+![Form](screenshots/enter_input.png)
 
 ### 📊 Prediction Output  
-![Results](assets/result.png)
+![Results](screenshots/result.png)
 
 ---
 
@@ -114,15 +114,12 @@ WindTurbineBladeOptimization/
 
 Plots are auto-generated under `/reports/figures`.  
 Include:
-- `input_distributions.png`
-- `scatter_relations.png`
-- `correlation_heatmap.png`
-- `feature_importance.png`
-- `actual_vs_predicted.png`
-- `residual_histograms.png`
-
-(You may embed them here after adding to GitHub.)
-
+- (reports/figures/input_distributions.png)
+- (reports/figures/scatter_relations.png)
+- (reports/figures/correlation_heatmap.png)
+- (reports/figures/feature_importance.png)
+- (reports/figures/actual_vs_predicted.png)
+- (reports/figures/residual_histograms.png
 ---
 
 ## 🧪 Running Locally
