@@ -1,0 +1,26 @@
+diff --git a/src/windturbine/app.py b/src/windturbine/app.py
+--- a/src/windturbine/app.py
++++ b/src/windturbine/app.py
+@@ -36,7 +36,14 @@
+ else:
+     # default to package templates path (will raise TemplateNotFound later if missing)
+     TEMPLATE_FOLDER = PACKAGE_TEMPLATES
+-    logger.warning("No templates directory found in package or repo root; expected at one of: %s or %s", PACKAGE_TEMPLATES, REPO_TEMPLATES)
++    logger.warning(
++        "No templates directory found in package or repo root; "
++        "expected at one of: %s or %s",
++        PACKAGE_TEMPLATES,
++        REPO_TEMPLATES,
++    )
++
+@@ -165,7 +172,17 @@
+ if __name__ == "__main__":
+-    logger.info("Starting app on port %s (debug=%s). MODEL_PATH=%s", port, debug, os.environ.get("MODEL_PATH", DEFAULT_MODEL_PATH))
++    logger.info(
++        "Starting app on port %s (debug=%s). MODEL_PATH=%s",
++        port,
++        debug,
++        os.environ.get("MODEL_PATH", DEFAULT_MODEL_PATH),
++    )
++
+     app.run(host="0.0.0.0", port=port, debug=debug)

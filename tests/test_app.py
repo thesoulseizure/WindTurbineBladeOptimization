@@ -2,7 +2,6 @@ import joblib
 import numpy as np
 import pytest
 
-
 FEATURE_ORDER = [
     "youngs_modulus",
     "density",
@@ -14,18 +13,18 @@ FEATURE_ORDER = [
 ]
 
 
+class DummyModel:
+    def predict(self, X):
+        n = X.shape[0]
+        out = np.zeros((n, 6))
+        s = X.sum(axis=1).to_numpy()
+        for i in range(6):
+            out[:, i] = s * (i + 1) * 0.001 + (i + 1) * 0.1
+        return out
+
+
 @pytest.fixture
 def client(tmp_path, monkeypatch):
-    # Create a trivial model that echoes input to 6 outputs for testing
-    class DummyModel:
-        def predict(self, X):
-            n = X.shape[0]
-            out = np.zeros((n, 6))
-            s = X.sum(axis=1).to_numpy()
-            for i in range(6):
-                out[:, i] = s * (i + 1) * 0.001 + (i + 1) * 0.1
-            return out
-
     model_path = tmp_path / "models"
     model_path.mkdir()
     dummy = DummyModel()
@@ -34,10 +33,8 @@ def client(tmp_path, monkeypatch):
 
     monkeypatch.setenv("MODEL_PATH", str(mfile))
 
-    # import app after setting MODEL_PATH so it loads the dummy model
     import importlib
-
-    import app as appmod
+    import src.windturbine.app as appmod
 
     importlib.reload(appmod)
     client_obj = appmod.app.test_client()
