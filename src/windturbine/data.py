@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 """
-generate_synthetic_data.py
+data.py
 
-Provides a callable `generate()` function for creating a synthetic dataset.
-When run as a script it writes CSV to `data/` by default.
+Synthetic dataset generator for the wind turbine blade project.
+Provides generate() which returns a DataFrame, and CLI to save CSV.
 """
+
 import argparse
-import numpy as np
-import pandas as pd
 from pathlib import Path
 from typing import Optional
+import numpy as np
+import pandas as pd
 
 BASELINE = {
     "youngs_modulus": 70,  # GPa
@@ -30,15 +31,7 @@ BASELINE = {
 
 
 def generate(n_samples: int = 150, seed: Optional[int] = 42) -> pd.DataFrame:
-    """Generate synthetic dataset and return it as a DataFrame.
-
-    Parameters
-    ----------
-    n_samples : int
-        Number of rows to generate.
-    seed : int | None
-        RNG seed. If None, RNG is not seeded.
-    """
+    """Generate synthetic dataset and return it as a DataFrame."""
     if seed is not None:
         np.random.seed(seed)
 

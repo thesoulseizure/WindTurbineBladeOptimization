@@ -1,20 +1,24 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 """
-train_blade_model.py
+train.py
 
-Provides:
-- train(X, y, n_estimators=100, random_state=42) to train on arrays/dataframes
-- train_from_csv() CLI entrypoint to train from CSV and save a model artifact
+Training utilities for the wind turbine blade model.
+Provides train(X, y) and train_from_csv() entrypoint to save artifact + metrics.
 """
-import argparse
+
 from pathlib import Path
+from typing import Tuple
+import json
+
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 import joblib
-import json
-from typing import Tuple
+
+
+FEATURES = ["youngs_modulus", "density", "poissons_ratio", "thickness", "length", "pressure", "frequency"]
+TARGETS = ["deformation", "stress", "strain", "factor_of_safety", "fatigue_life", "damage"]
 
 
 def load_data(path: str) -> pd.DataFrame:
@@ -22,7 +26,6 @@ def load_data(path: str) -> pd.DataFrame:
 
 
 def train(X, y, n_estimators: int = 100, random_state: int = 42):
-    """Train and return a fitted RandomForestRegressor (multi-output)."""
     model = RandomForestRegressor(n_estimators=n_estimators, random_state=random_state)
     model.fit(X, y)
     return model
@@ -35,13 +38,9 @@ def train_from_csv(
     test_size: float = 0.2,
     random_state: int = 42,
 ) -> Tuple[str, float, float]:
-    """Train model from CSV and save artifact; returns (model_path, train_r2, test_r2)."""
     df = load_data(input_csv)
-    features = ["youngs_modulus", "density", "poissons_ratio", "thickness", "length", "pressure", "frequency"]
-    targets = ["deformation", "stress", "strain", "factor_of_safety", "fatigue_life", "damage"]
-
-    X = df[features]
-    y = df[targets]
+    X = df[FEATURES]
+    y = df[TARGETS]
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
     model = train(X_train, y_train, n_estimators=n_estimators, random_state=random_state)
@@ -61,6 +60,8 @@ def train_from_csv(
 
 
 def main():
+    import argparse
+
     parser = argparse.ArgumentParser(description="Train blade model and save artifact.")
     parser.add_argument("--data", type=str, default="data/wind_turbine_blade_data.csv", help="Path to CSV dataset.")
     parser.add_argument("--out", type=str, default="models/rf_blade_model.pkl", help="Output model path.")

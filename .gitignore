@@ -1,48 +1,39 @@
-# Byte-compiled / cache
+# Python
+*.pyc
 __pycache__/
-*.py[cod]
-*$py.class
-
-# Virtual envs
-.venv/
-venv/
-env/
+*.pyo
+*.pyd
+*.env
 .env
-
-# Python packaging/build
-build/
-dist/
-*.egg-info/
-
-# Jupyter
-.ipynb_checkpoints/
+venv/
+.venv/
 
 # OS
 .DS_Store
 Thumbs.db
 
+# Jupyter
+.ipynb_checkpoints
+
+# Data / models
+data/
+models/
+*.h5
+*.pt
+*.pkl
+
 # Editor
 .vscode/
 .idea/
-
-# Logs
-*.log
-
-# Data and model artifacts
-data/
-models/
-*.pkl
-*.h5
-*.csv
+*.sublime-workspace
 
 # Coverage
 htmlcov/
 .coverage
+.coverage.*
 
-# Pipenv / Poetry
-Pipfile.lock
-.poetry/
+# Logs
+*.log
 
-# Docker local env
+# Docker
 docker-compose.override.yml
-.env.local

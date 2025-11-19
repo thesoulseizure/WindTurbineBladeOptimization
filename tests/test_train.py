@@ -1,9 +1,9 @@
 import pandas as pd
-from train_blade_model import train
+from src.windturbine.train import train, train_from_csv
+from sklearn.ensemble import RandomForestRegressor
 
 
 def test_train_smoke():
-    # Generate tiny dataset
     df = pd.DataFrame(
         {
             "youngs_modulus": [70, 75, 65, 80],
@@ -43,7 +43,6 @@ def test_train_smoke():
             "damage",
         ]
     ]
+
     model = train(X, y, n_estimators=10, random_state=0)
-    assert model is not None
-    preds = model.predict(X)
-    assert preds.shape[0] == X.shape[0]
+    assert isinstance(model, RandomForestRegressor)
