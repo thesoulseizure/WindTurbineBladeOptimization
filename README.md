@@ -1,4 +1,3 @@
-# Wind Turbine Blade Optimization Using Machine Learning
 
 <h1 align="center">🌬️ Wind Turbine Blade Optimization</h1>
 <p align="center">
