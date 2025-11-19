@@ -159,52 +159,52 @@ Figures extracted from FEA study:
 Figures extracted from the FEA study:
 
 ### Blade geometry
-![Geometry](../assets/geometry.png)
+![Geometry](../assests/geometry.png)
 
 ### Mesh diagram
-![Mesh diagram](../assets/mesh-diagram.png)
+![Mesh diagram](../assests/mesh-diagram.png)
 
 ### Mesh details
-![Mesh details](../assets/mesh-details.png)
+![Mesh details](../assests/mesh-details.png)
 
 ---
 
 ### Case 1 — FEA study outputs
 
 #### Input conditions
-![Case 1 input](../assets/case1-input.png)
+![Case 1 input](../assests/case1-input.png)
 
 #### Deformation (transient/modal)
-![Case 1 deformation](../assets/case1-deformation.png)
+![Case 1 deformation](../assests/case1-deformation.png)
 
 #### Stress (von-Mises)
-![Case 1 stress](../assets/case1-stress.png)
+![Case 1 stress](../assests/case1-stress.png)
 
 #### Strain
-![Case 1 strain](../assets/case1-strain.png)
+![Case 1 strain](../assests/case1-strain.png)
 
 #### Factor of Safety
-![Case 1 factor of safety](../assets/case1-safety%20factor.png)
+![Case 1 factor of safety](../assests/case1-safety%20factor.png)
 
 ---
 
 ### Case 2 — Harmonic / Frequency response
-![Case 2 output](../assets/case2-output.png)
+![Case 2 output](../assests/case2-output.png)
 
 ---
 
 ### Case 3 — Fatigue analysis
 
 #### Damage map
-![Case 3 damage](../assets/case3-damage.png)
+![Case 3 damage](../assests/case3-damage.png)
 
 #### Fatigue life
-![Case 3 life](../assets/case3-life.png)
+![Case 3 life](../assests/case3-life.png)
 
 ---
 
 ### Summary / Combined results
-![Results overview](../assets/results.png)
+![Results overview](../assests/results.png)
 
 ---
 
