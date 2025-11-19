@@ -156,13 +156,44 @@ Figures included in `/reports/figures`:
 
 Figures extracted from FEA study:
 
-- Geometry overview  
-- Meshing details  
-- Load case illustrations  
-- Stress, strain, deformation contours  
-- Fatigue life results  
+### Overview / Intro
+![Intro diagram](assets/intro.png)
 
-These are stored in `/assets/` and referenced in the README.
+### Blade geometry
+![Geometry](assets/geometry.png)
+
+### Mesh diagram
+![Mesh diagram](assets/mesh-diagram.png)
+
+### Mesh details
+![Mesh details](assets/mesh-details.png)
+
+### Case 1 — Input conditions
+![Case 1 input](assets/case1-input.png)
+
+### Case 1 — Deformation (transient/modal)
+![Case 1 deformation](assets/case1-deformation.png)
+
+### Case 1 — Stress (von-Mises)
+![Case 1 stress](assets/case1-stress.png)
+
+### Case 1 — Strain
+![Case 1 strain](assets/case1-strain.png)
+
+### Case 1 — Factor of Safety
+![Case 1 factor of safety](assets/case1-safety%20factor.png)
+
+### Case 2 — Output (harmonic / frequency)
+![Case 2 output](assets/case2-output.png)
+
+### Case 3 — Fatigue life
+![Case 3 life](assets/case3-life.png)
+
+### Case 3 — Damage / fatigue maps
+![Case 3 damage](assets/case3-damage.png)
+
+### Combined results / summary
+![Results overview](assets/results.png)
 
 ---
 
