@@ -1,1 +1,22 @@
+# Python cache files
+__pycache__/
+*.pyc
 
+# Virtual environments
+venv/
+env/
+
+# macOS system files
+.DS_Store
+
+# Editor files
+*.swp
+*.swo
+*.swn
+
+# Temporary files
+*.log
+*.tmp
+
+# Model files (include in repo since they are small)
+# *.pkl
