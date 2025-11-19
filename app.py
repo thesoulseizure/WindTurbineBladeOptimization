@@ -10,6 +10,7 @@ Improvements:
 """
 
 from __future__ import annotations
+
 import os
 import logging
 from pathlib import Path
@@ -19,16 +20,22 @@ from flask import Flask, render_template, request, jsonify
 import joblib
 import pandas as pd
 
+
 # Logging
-logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s"
+)
 logger = logging.getLogger("windblade")
+
 
 # App
 app = Flask(__name__, template_folder="templates")
 
+
 # Config: MODEL_PATH env var or default
 BASE_DIR = Path(__file__).parent.resolve()
 MODEL_PATH = Path(os.environ.get("MODEL_PATH", BASE_DIR / "models" / "rf_blade_model.pkl"))
+
 
 def load_model(path: Path):
     if not path.exists():
@@ -38,11 +45,13 @@ def load_model(path: Path):
         model = joblib.load(path)
         logger.info("Loaded model from %s", path)
         return model
-    except Exception as e:
-        logger.exception("Failed to load model: %s", e)
+    except Exception as exc:
+        logger.exception("Failed to load model: %s", exc)
         return None
 
+
 rf_model = load_model(MODEL_PATH)
+
 
 # Input validation ranges (example)
 RANGES = {
@@ -55,7 +64,16 @@ RANGES = {
     "frequency": (0, 1e6),
 }
 
-FEATURE_ORDER = ["youngs_modulus", "density", "poissons_ratio", "thickness", "length", "pressure", "frequency"]
+FEATURE_ORDER = [
+    "youngs_modulus",
+    "density",
+    "poissons_ratio",
+    "thickness",
+    "length",
+    "pressure",
+    "frequency",
+]
+
 
 def parse_and_validate(data: Dict[str, Any]) -> pd.DataFrame:
     vals = {}
@@ -72,15 +90,20 @@ def parse_and_validate(data: Dict[str, Any]) -> pd.DataFrame:
         vals[f] = v
     return pd.DataFrame([vals])
 
+
 @app.route("/")
 def index():
     return render_template("index.html")
+
 
 @app.route("/predict", methods=["POST"])
 def predict():
     # Support form submission or JSON
     if rf_model is None:
-        return render_template("error.html", message="Model is not available on server. Contact admin."), 503
+        return (
+            render_template("error.html", message="Model is not available on server. Contact admin."),
+            503,
+        )
 
     try:
         if request.is_json:
@@ -109,17 +132,23 @@ def predict():
         if request.is_json:
             return jsonify({"success": True, "predictions": results})
         return render_template("result.html", **results)
-    except Exception as e:
-        logger.exception("Prediction error: %s", e)
+    except Exception as exc:
+        logger.exception("Prediction error: %s", exc)
         # For form requests show template; for API requests return JSON error
         if request.is_json:
-            return jsonify({"success": False, "error": str(e)}), 400
-        return render_template("error.html", message=str(e)), 400
+            return jsonify({"success": False, "error": str(exc)}), 400
+        return render_template("error.html", message=str(exc)), 400
+
 
 @app.route("/health")
 def health():
     return jsonify({"status": "ok", "model_loaded": rf_model is not None})
 
+
 if __name__ == "__main__":
     # Run only for local development. Production use gunicorn and set MODEL_PATH env var.
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5002)), debug=bool(os.environ.get("FLASK_DEBUG", "false").lower() in ["1","true"]))
+    app.run(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5002)),
+        debug=bool(os.environ.get("FLASK_DEBUG", "false").lower() in ["1", "true"]),
+    )
