@@ -1,22 +1,48 @@
-# Python cache files
+# Byte-compiled / cache
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
 
-# Virtual environments
+# Virtual envs
+.venv/
 venv/
 env/
+.env
 
-# macOS system files
+# Python packaging/build
+build/
+dist/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
 .DS_Store
+Thumbs.db
 
-# Editor files
-*.swp
-*.swo
-*.swn
+# Editor
+.vscode/
+.idea/
 
-# Temporary files
+# Logs
 *.log
-*.tmp
 
-# Model files (include in repo since they are small)
-# *.pkl
+# Data and model artifacts
+data/
+models/
+*.pkl
+*.h5
+*.csv
+
+# Coverage
+htmlcov/
+.coverage
+
+# Pipenv / Poetry
+Pipfile.lock
+.poetry/
+
+# Docker local env
+docker-compose.override.yml
+.env.local
