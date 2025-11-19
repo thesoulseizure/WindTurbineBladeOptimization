@@ -19,4 +19,5 @@ ENV PORT=10000
 EXPOSE 10000
 
 # Start gunicorn using Render's assigned port
-CMD ["gunicorn", "src.windturbine.app:app", "--bind", "0.0.0.0:$PORT", "--workers", "2"]
+CMD ["sh", "-c", "gunicorn 'src.windturbine.app:app' --bind 0.0.0.0:$PORT --workers 2"]
+
