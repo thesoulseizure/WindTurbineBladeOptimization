@@ -37,8 +37,6 @@
     <img alt="issues" src="https://img.shields.io/github/issues/TheComputationalCore/WindTurbineBladeOptimization?style=flat-square">
   </a>
 
-  <!-- Stars -->
-  <img alt="stars" src="https://img.shields.io/github/stars/TheComputationalCore/WindTurbineBladeOptimization?style=flat-square">
 </p>
 
 
